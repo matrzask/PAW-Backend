@@ -8,6 +8,8 @@ var connectDB = require('./config/db');
 
 var availabilityRouter = require('./routes/availabilityRoute');
 var doctorRouter = require('./routes/doctorRoute');
+var absenceRouter = require('./routes/absenceRoute');
+var consultationRouter = require('./routes/consultationRoute');
 
 var app = express();
 
@@ -22,5 +24,7 @@ app.use(cors());
 
 app.use('/availability', availabilityRouter);
 app.use('/doctor', doctorRouter);
+app.use('/absence', absenceRouter);
+app.use('/consultation', consultationRouter);
 
 module.exports = app;

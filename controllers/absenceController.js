@@ -1,8 +1,12 @@
 const Absence = require('../models/absenceModel');
+const mongoose = require('mongoose');
 
 exports.getAbsence = async (req, res) => {
     try {
         const doctorId = req.query.doctorId;
+        if (!mongoose.Types.ObjectId.isValid(doctorId)) {
+            return res.status(200).json([]);
+        }
         const absence = await Absence.find({ doctorId: doctorId });
         res.status(200).json(absence);
     } catch (err) {

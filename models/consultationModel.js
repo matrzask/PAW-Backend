@@ -12,4 +12,12 @@ const ConsultationSchema = new mongoose.Schema({
     details: { type: String }
 });
 
+ConsultationSchema.virtual('id').get(function(){
+    return this._id.toHexString();
+});
+
+ConsultationSchema.set('toJSON', {
+    virtuals: true
+});
+
 module.exports = mongoose.model('Consultation', ConsultationSchema);

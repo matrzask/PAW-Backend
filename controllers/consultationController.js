@@ -1,8 +1,12 @@
 const Consultation = require('../models/consultationModel');
+const mongoose = require('mongoose');
 
 exports.getConsultation = async (req, res) => {
     try {
         const doctorId = req.query.doctorId;
+        if (!mongoose.Types.ObjectId.isValid(doctorId)) {
+            return res.status(200).json([]);
+        }
         const consultation = await Consultation.find({ doctorId: doctorId });
         res.status(200).json(consultation);
     } catch (err) {

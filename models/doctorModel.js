@@ -5,4 +5,12 @@ const DoctorSchema = new mongoose.Schema({
     speciality: { type: String, required: true }
 });
 
+DoctorSchema.virtual('id').get(function(){
+    return this._id.toHexString();
+});
+
+DoctorSchema.set('toJSON', {
+    virtuals: true
+});
+
 module.exports = mongoose.model('Doctor', DoctorSchema);

@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const Doctor = require('../models/doctorModel');
 const jwt = require('jsonwebtoken');
 
 const generateToken = (id) => {
@@ -10,13 +11,14 @@ const generateRefreshToken = (id) => {
 };
 
 exports.registerUser = async (req, res) => {
-    const { name, email, password, age, gender, role } = req.body;
-
     try {
-        const user = await User.create({ email, password, name, age, gender, role });
-        console.log(user);
+        const user = await User.create(req.body);
         const token = generateToken(user._id);
         const refreshToken = generateRefreshToken(user._id);
+
+        if (user.role === 'Doctor') {
+            await Doctor.create({ userId: user._id, name: user.name });
+        }
 
         res.status(201).json({
             status: 'success',

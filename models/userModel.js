@@ -7,7 +7,8 @@ const UserSchema = new mongoose.Schema({
     name: { type: String, required: true },
     age: { type: Number, required: true },
     gender: { type: String, required: true, enum: ['Male', 'Female', 'Other', 'Prefer not to say'] },
-    role: { type: String, required: true, enum: ['Patient', 'Doctor', 'Admin'] }
+    role: { type: String, required: true, enum: ['Patient', 'Doctor', 'Admin'] },
+    banned: { type: Boolean, default: false },
 });
 
 UserSchema.pre('save', async function (next) {

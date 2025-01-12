@@ -1,4 +1,5 @@
 const Availability = require('../models/availabilityModel');
+const Doctor = require('../models/doctorModel');
 const mongoose = require('mongoose');
 
 exports.getAvailability = async (req, res) => {
@@ -19,6 +20,16 @@ exports.getAvailability = async (req, res) => {
 
 exports.createAvailability = async (req, res) => {
     try {
+        const { doctorId } = req.body;
+        const doctor = await Doctor.findOne({ userId: req.user._id });
+
+        if (doctorId !== doctor._id.toString()) {
+            return res.status(403).json({
+                status: 'fail',
+                message: 'You can only add availability for yourself'
+            });
+        }
+
         const newAvailability = await Availability.create(req.body);
         res.status(201).json({
             status: 'success',

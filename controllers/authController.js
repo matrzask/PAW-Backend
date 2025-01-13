@@ -48,7 +48,7 @@ exports.addUser = async (req, res) => {
         const user = await User.create(req.body);
 
         if (user.role === 'Doctor') {
-            await Doctor.create({ userId: user._id, name: user.name });
+            await Doctor.create({ userId: user._id, name: user.name, specialty: req.body.specialty });
         }
 
         res.status(201).json({

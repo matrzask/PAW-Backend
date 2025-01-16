@@ -12,6 +12,18 @@ exports.getDoctors = async (req, res) => {
     }
 };
 
+exports.getDoctorById = async (req, res) => {
+    try {
+        const doctor = await Doctor.findById(req.params.id);
+        res.status(200).json(doctor);
+    } catch (err) {
+        res.status(400).json({
+            status: 'fail',
+            message: err.message
+        });
+    }
+}
+
 exports.getDoctorByUserId = async (req, res) => {
     try {
         const doctor = await Doctor.findOne({ userId: req.params.id });

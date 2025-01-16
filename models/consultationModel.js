@@ -1,4 +1,3 @@
-// filepath: /models/consultationModel.js
 const mongoose = require('mongoose');
 
 const ConsultationSchema = new mongoose.Schema({

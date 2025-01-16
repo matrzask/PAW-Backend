@@ -11,6 +11,7 @@ var doctorRouter = require('./routes/doctorRoute');
 var absenceRouter = require('./routes/absenceRoute');
 var consultationRouter = require('./routes/consultationRoute');
 var authRouter = require('./routes/authRoute');
+var reviewRouter = require('./routes/reviewRoute');
 
 var app = express();
 
@@ -28,5 +29,6 @@ app.use('/doctor', doctorRouter);
 app.use('/absence', absenceRouter);
 app.use('/consultation', consultationRouter);
 app.use('/auth', authRouter);
+app.use('/review', reviewRouter);
 
 module.exports = app;

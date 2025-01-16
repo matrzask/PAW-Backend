@@ -5,6 +5,6 @@ const { protect, authorize } = require('../middleware/authMiddleware');
 const checkBanned = require('../middleware/checkBanned');
 
 router.get('/', reviewController.getReviews);
-router.post('/', protect, authorize('User'), checkBanned, reviewController.addReview);
+router.post('/', protect, authorize('Patient'), checkBanned, reviewController.addReview);
 
 module.exports = router;

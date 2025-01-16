@@ -6,5 +6,6 @@ const checkBanned = require('../middleware/checkBanned');
 
 router.get('/', reviewController.getReviews);
 router.post('/', protect, authorize('Patient'), checkBanned, reviewController.addReview);
+router.delete('/:id', protect, authorize('Admin'), reviewController.deleteReview);
 
 module.exports = router;

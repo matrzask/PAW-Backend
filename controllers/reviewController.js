@@ -40,3 +40,24 @@ exports.addReview = async (req, res) => {
         });
     }
 }
+
+exports.deleteReview = async (req, res) => {
+    try {
+        const review = await Review.findByIdAndDelete(req.params.id);
+        if (!review) {
+            return res.status(404).json({
+                status: 'fail',
+                message: 'No review found with that ID'
+            });
+        }
+        res.status(204).json({
+            status: 'success',
+            data: null
+        });
+    } catch (err) {
+        res.status(400).json({
+            status: 'fail',
+            message: err.message
+        });
+    }
+}

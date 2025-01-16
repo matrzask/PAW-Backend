@@ -7,4 +7,8 @@ const ReviewSchema = new mongoose.Schema({
     content: { type: String, required: true }
 });
 
+ReviewSchema.virtual('id').get(function(){
+    return this._id.toHexString();
+});
+
 module.exports = mongoose.model('Review', ReviewSchema);

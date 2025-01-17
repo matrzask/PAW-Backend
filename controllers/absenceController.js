@@ -26,7 +26,7 @@ exports.createAbsence = async (req, res) => {
         if (doctorId !== doctor._id.toString()) {
             return res.status(403).json({
                 status: 'fail',
-                message: 'You can only add availability for yourself'
+                message: 'You can only add absences for yourself'
             });
         }
 

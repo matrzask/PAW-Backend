@@ -36,7 +36,23 @@ exports.createConsultation = async (req, res) => {
 
 exports.deleteConsultation = async (req, res) => {
     try {
-        const consultation = await Consultation.findByIdAndDelete(req.params.id);
+        const consultation = await Consultation.findById(req.params.id);
+
+        if (!consultation) {
+            return res.status(404).json({
+                status: 'fail',
+                message: 'Consultation not found'
+            });
+        }
+
+        if (consultation.doctorId.toString() !== req.user._id.toString()) {
+            return res.status(403).json({
+                status: 'fail',
+                message: 'You are not authorized to delete this consultation'
+            });
+        }
+
+        await consultation.remove();
         res.status(204).json({
             status: 'success',
             data: null

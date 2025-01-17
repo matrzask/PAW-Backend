@@ -1,4 +1,5 @@
 const Consultation = require('../models/consultationModel');
+const Doctor = require('../models/doctorModel');
 const mongoose = require('mongoose');
 
 exports.getConsultation = async (req, res) => {
@@ -45,14 +46,16 @@ exports.deleteConsultation = async (req, res) => {
             });
         }
 
-        if (consultation.doctorId.toString() !== req.user._id.toString()) {
+        const doctor = await Doctor.findById(consultation.doctorId);
+
+        if (doctor.userId !== req.user._id.toString()) {
             return res.status(403).json({
                 status: 'fail',
                 message: 'You are not authorized to delete this consultation'
             });
         }
 
-        await consultation.remove();
+        await consultation.deleteOne();
         res.status(204).json({
             status: 'success',
             data: null

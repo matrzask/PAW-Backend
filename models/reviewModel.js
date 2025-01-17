@@ -4,7 +4,8 @@ const ReviewSchema = new mongoose.Schema({
     doctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor', required: true },
     author: { type: String, required: true },
     rating: { type: Number, required: true },
-    content: { type: String, required: true }
+    content: { type: String, required: true },
+    reply: { type: String },
 });
 
 ReviewSchema.virtual('id').get(function(){

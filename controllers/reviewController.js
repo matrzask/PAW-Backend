@@ -61,3 +61,28 @@ exports.deleteReview = async (req, res) => {
         });
     }
 }
+
+exports.addReply = async (req, res) => {
+    try {
+        const review = await Review.findById(req.params.id);
+        if (!review || review.doctorId.toString() !== req.body.doctorId) {
+            return res.status(404).json({
+                status: 'fail',
+                message: 'No review found with that ID'
+            });
+        }
+        review.reply = req.body.reply;
+        await review.save();
+        res.status(200).json({
+            status: 'success',
+            data: {
+                review
+            }
+        });
+    } catch (err) {
+        res.status(400).json({
+            status: 'fail',
+            message: err.message
+        });
+    }
+}
